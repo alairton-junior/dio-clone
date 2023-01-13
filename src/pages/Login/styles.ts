@@ -52,6 +52,7 @@ export const TitleLogin = styled.p`
 
 `
 
+
 export const SubtitleLogin = styled.p`
     font-family: 'Open Sans', sans-serif;
     font-style: normal;

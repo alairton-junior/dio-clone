@@ -1,6 +1,7 @@
 import Button from '../Button'
 import Logo from  '../../assets/logo-dio.svg'
 
+
 import {
     Container, 
     Row,
@@ -11,14 +12,22 @@ import {
     BuscarInputContainer,
     UserPicture
 } from './styles'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/auth'
+import { Link } from 'react-router-dom'
 
-export default function Header({autenticado}) {
+export default function Header() {
+
+    const { user, handleSignOut } = useContext(AuthContext)
+
     return (
         <Wrapper>
             <Container>
                 <Row>
-                    <img src={Logo} alt="Logo da Dio" />
-                    {autenticado ?
+                    <Link to="/">
+                        <img src={Logo} alt="Logo da Dio" />
+                    </Link>
+                    {user.id ?
                     
                     (
                         <>
@@ -26,14 +35,17 @@ export default function Header({autenticado}) {
                                 <Input placeholder="Buscar..."/>
                             </BuscarInputContainer>
                             <Menu>Live Code</Menu>
-                            <Menu>Global</Menu>
+                            <Menu>Olá, { user.name}</Menu>
                         </>
                     ) : null}
                     
                 </Row>
                 <Row>
-                    {autenticado ? (
-                       <UserPicture src="https://avatars.githubusercontent.com/u/59837025?v=4"/>
+                    {user.id ? (
+                        <>
+                            <UserPicture src="https://avatars.githubusercontent.com/u/59837025?v=4"/>
+                            <a href="#" onClick={handleSignOut}> Sair </a>
+                       </>
                     ) : (
                         <>
                             <MenuRight href="#">Home</MenuRight>
